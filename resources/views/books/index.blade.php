@@ -11,6 +11,7 @@
                 <th>Judul</th>
                 <th>Penulis</th>
                 <th>Tahun Terbit</th>
+                <th>Stok</th>
                 <th>Detail</th>
             </tr>
         </thead>
@@ -18,10 +19,11 @@
             @foreach($books as $index => $book)
             <tr>
                 <td>{{ $index + 1 }}</td>
-                <td>{{ $book['judul'] }}</td>
-                <td>{{ $book['penulis'] }}</td>
-                <td>{{ $book['tahun'] }}</td>
-                <td><a href="/books/{{ $index + 1 }}">Lihat Detail</a></td>
+                <td>{{ $book->title }}</td>
+                <td>{{ $book->author }}</td>
+                <td>{{ $book->year }}</td>
+                <td>{{ $book->stock }}</td>
+                <td><a href="/books/{{ $book->id }}">Lihat Detail</a></td>
             </tr>
             @endforeach
         </tbody>
