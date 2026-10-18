@@ -20,14 +20,28 @@ class BookController extends Controller
 
     public function store(Request $request)
     {
-        Book::create([
-            'title' => $request->title,
-            'author' => $request->author,
-            'year' => $request->year,
-            'stock' => $request->stock,
+        $validated = $request->validate([
+            'title'  => 'required|string|min:3|max:255',
+            'author' => 'required|string|max:255|regex:/^[a-zA-Z\s\.\-\']+$/',
+            'year'   => 'required|integer|min:1900|max:' . date('Y'),
+            'stock'  => 'required|integer|min:0|max:1000',
+        ], [
+            'title.required'  => 'Judul buku wajib diisi.',
+            'title.min'       => 'Judul buku minimal 3 karakter.',
+            'author.required' => 'Nama penulis wajib diisi.',
+            'author.regex'    => 'Nama penulis hanya boleh berisi huruf, spasi, titik, tanda hubung, dan apostrof.',
+            'year.required'   => 'Tahun terbit wajib diisi.',
+            'year.integer'    => 'Tahun terbit harus berupa angka.',
+            'year.min'        => 'Tahun terbit tidak boleh kurang dari 1900.',
+            'year.max'        => 'Tahun terbit tidak boleh lebih dari tahun ' . date('Y') . '.',
+            'stock.required'  => 'Stok wajib diisi.',
+            'stock.min'       => 'Stok tidak boleh negatif.',
+            'stock.max'       => 'Stok tidak boleh lebih dari 1000.',
         ]);
 
-        return redirect()->route('books.index');
+        Book::create($validated);
+
+        return redirect()->route('books.index')->with('success', 'Data buku berhasil ditambahkan.');
     }
 
     public function show(Book $book)
@@ -42,20 +56,33 @@ class BookController extends Controller
 
     public function update(Request $request, Book $book)
     {
-        $book->update([
-            'title' => $request->title,
-            'author' => $request->author,
-            'year' => $request->year,
-            'stock' => $request->stock,
+        $validated = $request->validate([
+            'title'  => 'required|string|min:3|max:255',
+            'author' => 'required|string|max:255|regex:/^[a-zA-Z\s\.\-\']+$/',
+            'year'   => 'required|integer|min:1900|max:' . date('Y'),
+            'stock'  => 'required|integer|min:0|max:1000',
+        ], [
+            'title.required'  => 'Judul buku wajib diisi.',
+            'title.min'       => 'Judul buku minimal 3 karakter.',
+            'author.required' => 'Nama penulis wajib diisi.',
+            'author.regex'    => 'Nama penulis hanya boleh berisi huruf, spasi, titik, tanda hubung, dan apostrof.',
+            'year.required'   => 'Tahun terbit wajib diisi.',
+            'year.integer'    => 'Tahun terbit harus berupa angka.',
+            'year.min'        => 'Tahun terbit tidak boleh kurang dari 1900.',
+            'year.max'        => 'Tahun terbit tidak boleh lebih dari tahun ' . date('Y') . '.',
+            'stock.required'  => 'Stok wajib diisi.',
+            'stock.min'       => 'Stok tidak boleh negatif.',
+            'stock.max'       => 'Stok tidak boleh lebih dari 1000.',
         ]);
 
-        return redirect()->route('books.index');
+        $book->update($validated);
+
+        return redirect()->route('books.index')->with('success', 'Data buku berhasil diperbarui.');
     }
 
     public function destroy(Book $book)
     {
         $book->delete();
-
-        return redirect()->route('books.index');
+        return redirect()->route('books.index')->with('success', 'Data buku berhasil dihapus.');
     }
 }

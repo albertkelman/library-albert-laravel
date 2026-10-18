@@ -9,25 +9,45 @@
         @csrf
         @method('PUT')
 
-        <p>
+        <div>
             <label>Judul:</label><br>
-            <input type="text" name="title" value="{{ $book->title }}" required>
-        </p>
+            <input type="text" name="title" value="{{ old('title', $book->title) }}">
+            @error('title')
+                <p style="color: red;">{{ $message }}</p>
+            @enderror
+        </div>
 
-        <p>
+        <br>
+
+        <div>
             <label>Penulis:</label><br>
-            <input type="text" name="author" value="{{ $book->author }}" required>
-        </p>
+            <input type="text" name="author" value="{{ old('author', $book->author) }}">
+            @error('author')
+                <p style="color: red;">{{ $message }}</p>
+            @enderror
+        </div>
 
-        <p>
+        <br>
+
+        <div>
             <label>Tahun Terbit:</label><br>
-            <input type="number" name="year" value="{{ $book->year }}" required>
-        </p>
+            <input type="number" name="year" value="{{ old('year', $book->year) }}">
+            @error('year')
+                <p style="color: red;">{{ $message }}</p>
+            @enderror
+        </div>
 
-        <p>
+        <br>
+
+        <div>
             <label>Stok:</label><br>
-            <input type="number" name="stock" value="{{ $book->stock }}" required>
-        </p>
+            <input type="number" name="stock" value="{{ old('stock', $book->stock) }}">
+            @error('stock')
+                <p style="color: red;">{{ $message }}</p>
+            @enderror
+        </div>
+
+        <br>
 
         <button type="submit">Update</button>
         <a href="{{ route('books.index') }}">Batal</a>
