@@ -21,13 +21,13 @@ class BookController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'title'  => 'required|string|min:3|max:255',
+            'title'  => 'required|string|min:2|max:255',
             'author' => 'required|string|max:255|regex:/^[a-zA-Z\s\.\-\']+$/',
             'year'   => 'required|integer|min:1900|max:' . date('Y'),
             'stock'  => 'required|integer|min:0|max:1000',
         ], [
             'title.required'  => 'Judul buku wajib diisi.',
-            'title.min'       => 'Judul buku minimal 3 karakter.',
+            'title.min'       => 'Judul buku minimal 2 karakter.',
             'author.required' => 'Nama penulis wajib diisi.',
             'author.regex'    => 'Nama penulis hanya boleh berisi huruf, spasi, titik, tanda hubung, dan apostrof.',
             'year.required'   => 'Tahun terbit wajib diisi.',
@@ -57,13 +57,13 @@ class BookController extends Controller
     public function update(Request $request, Book $book)
     {
         $validated = $request->validate([
-            'title'  => 'required|string|min:3|max:255',
+            'title'  => 'required|string|min:2|max:255',
             'author' => 'required|string|max:255|regex:/^[a-zA-Z\s\.\-\']+$/',
             'year'   => 'required|integer|min:1900|max:' . date('Y'),
             'stock'  => 'required|integer|min:0|max:1000',
         ], [
             'title.required'  => 'Judul buku wajib diisi.',
-            'title.min'       => 'Judul buku minimal 3 karakter.',
+            'title.min'       => 'Judul buku minimal 2 karakter.',
             'author.required' => 'Nama penulis wajib diisi.',
             'author.regex'    => 'Nama penulis hanya boleh berisi huruf, spasi, titik, tanda hubung, dan apostrof.',
             'year.required'   => 'Tahun terbit wajib diisi.',
