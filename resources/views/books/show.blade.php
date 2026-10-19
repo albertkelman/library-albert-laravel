@@ -8,6 +8,7 @@
     <p><strong>ID:</strong> {{ $book->id }}</p>
     <p><strong>Judul:</strong> {{ $book->title }}</p>
     <p><strong>Penulis:</strong> {{ $book->author }}</p>
+    <p><strong>Kategori:</strong> {{ $book->category?->name ?? 'Belum ada kategori' }}</p>
     <p><strong>Tahun Terbit:</strong> {{ $book->year }}</p>
     <p><strong>Stok:</strong> {{ $book->stock }}</p>
 
